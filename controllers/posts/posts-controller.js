@@ -25,6 +25,9 @@ const findPostsByAuthor = async (req, res) => {
 
 const createPost = async (req, res) => {
     const newPost = req.body;
+    // get login user from session, add to post
+    const currentUser = req.session['currentUser']
+    newPost.author = currentUser._id
     console.log("from node server, createpost post-controller, print new post");
     console.log(newPost);
     const insertedPost = await postsDao.createPost(newPost);
