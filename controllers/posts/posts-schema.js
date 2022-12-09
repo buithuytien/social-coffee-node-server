@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const schema = mongoose.Schema({
-    author: mongoose.Schema.Types.ObjectId,
-    recipe: mongoose.Schema.Types.ObjectId,
+    author: {type: mongoose.Schema.Types.ObjectId,  ref: 'UserModel'},
+    recipe: {type: mongoose.Schema.Types.ObjectId, ref: 'RecipeModel'},
     postImage: String,
     photos: [String], // remove ?
     title: String,

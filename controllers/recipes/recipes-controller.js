@@ -6,6 +6,7 @@ import * as recipeDao from './recipes-dao.js'
 const RecipesController = (app) => {
     app.post('/api/recipes', createRecipe);
     app.get('/api/recipes', findRecipes);
+    // when hook to react, retrieve author id, then pass to find recipe
     app.get('/api/recipes/author/:uid', findRecipesByAuthor);
     app.put('/api/recipes/:rid', updateRecipe);
     app.delete('/api/recipes/:rid', deleteRecipe);

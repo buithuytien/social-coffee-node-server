@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 const schema = mongoose.Schema({
-    author: mongoose.Schema.Types.ObjectId,
+    author: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
     recipeName: String,
     recipeDescription: String,
     recipeNote: String,

@@ -47,4 +47,5 @@ const updatePost = async (req, res) => {
     res.json(status);
 }
 
+export default PostsController
 
