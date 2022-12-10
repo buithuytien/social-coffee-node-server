@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 // var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/social-coffee');
 
 
 import * as dao from './recipe-collection-dao.js'

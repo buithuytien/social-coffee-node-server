@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-mongoose.connect('mongodb://localhost:27017/social-coffee');
 
 import * as postsDao from './posts-dao.js'
 

@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors'
 import mongoose from "mongoose";
@@ -11,13 +12,17 @@ import UsersController from "./controllers/users/users-controller.js";
 import PostsController from "./controllers/posts/posts-controller.js";
 import CommentsController from "./controllers/comments/comments-controller.js";
 import RecipeCollectionsController from "./controllers/recipe-collections/recipe-collection-controller.js";
-mongoose.connect("mongodb://localhost:27017/social-coffee");
+
+dotenv.config()
+
+// mongoose.connect("mongodb://localhost:27017/social-coffee");
 // console.log("env variable:")
 // console.log(process.env.DB_CONNECTION_STRING)
 // console.log("mongodb+srv://buithuytien1313:25011993@cluster0.xybi1r2.mongodb.net/?retryWrites=true&w=majority")
-// const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
-//     || 'mongodb://localhost:27017/tuiter'
-// mongoose.connect(CONNECTION_STRING);
+const CONNECTION_STRING = process.env.DB_CONNECT_STRING
+    || 'mongodb://localhost:27017/tuiter'
+console.log(CONNECTION_STRING)
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();
 // app.use(cors());
