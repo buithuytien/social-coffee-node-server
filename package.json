@@ -3,6 +3,7 @@
   "name": "social-coffee-node-server",
   "version": "1.0.0",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
