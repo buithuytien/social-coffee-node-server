@@ -1,4 +1,8 @@
-import * as usersDao from  "./users-dao.js";
+import * as usersDao from "./users-dao.js";
+import bcrypt from 'bcrypt'
+
+const salt = 10
+
 // import {createUser, deleteUser, findUsers, updateUser} from "./users-dao.js";
 
 const UsersController = (app) =>{
@@ -15,24 +19,35 @@ const UsersController = (app) =>{
 
 const register = async (req, res) => {
     const user = req.body;
+    const password = user.password;
+
+    user.password = await bcrypt.hash(password, salt);
+
     const existingUser = await usersDao.findUserByUsername(user.username)
     if(existingUser) {
         res.sendStatus(403)
         return
     }
+
     const currentUser = await usersDao.createUser(user)
+    currentUser.password = '*****'
     req.session['currentUser'] = currentUser
     res.json(currentUser)
 }
 
 const login = async (req, res) => {
     const credentials = req.body
-    const existingUser = await usersDao.findUserByCredentials(
-            credentials.userName, credentials.password)
+    const password = credentials.password;
+
+    const existingUser = await usersDao.findUserByUsername(credentials.userName)
+
+    const match = await bcrypt.compare(password, existingUser.password);
+
     // const existingUser = await usersDao.findUserByUsername(credentials.userName)
-    console.log(existingUser)
-    if(existingUser) {
+
+    if (match) {
         // access session from here
+        existingUser.password = '*****'
         req.session['currentUser'] = existingUser
         console.log('users-controller login, session info')
         console.log(req.session)
