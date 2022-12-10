@@ -20,12 +20,12 @@ mongoose.connect("mongodb://localhost:27017/social-coffee");
 // mongoose.connect(CONNECTION_STRING);
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 
-// app.use(cors({
-//     credentials: true,
-//     origin: 'http://localhost:3000'
-// }))
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+}))
 
 app.use(session({
     secret: 'should be an environment variable',
