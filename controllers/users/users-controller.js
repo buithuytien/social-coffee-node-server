@@ -8,9 +8,9 @@ const UsersController = (app) =>{
     app.put('/api/users/:uid', updateUser);
     app.delete('/api/users/:uid', deleteUser);
 
-    app.post('/api/register', register)
-    app.post('/api/login', login)
-    app.post('/api/logout', logout)
+    app.post('/api/users/register', register)
+    app.post('/api/users/login', login)
+    app.post('/api/users/logout', logout)
 }
 
 const register = async (req, res) => {
