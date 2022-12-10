@@ -5,7 +5,7 @@ const schema = mongoose.Schema({
     postImage: String,
     photos: [String], // remove ?
     title: String,
-    content: [String],
+    content: String,
     likes: Number
 }, {collection: 'posts'});
 export default schema;

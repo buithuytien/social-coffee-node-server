@@ -8,6 +8,9 @@ import RecipesController from "./controllers/recipes/recipes-controller.js";
 // db
 
 import UsersController from "./controllers/users/users-controller.js";
+import PostsController from "./controllers/posts/posts-controller.js";
+import CommentsController from "./controllers/comments/comments-controller.js";
+import RecipeCollectionsController from "./controllers/recipe-collections/recipe-collection-controller.js";
 mongoose.connect("mongodb://localhost:27017/social-coffee");
 // console.log("env variable:")
 // console.log(process.env.DB_CONNECTION_STRING)
@@ -36,5 +39,11 @@ app.use(express.json());
 
 RecipesController(app);
 UsersController(app);
+PostsController(app);
+CommentsController(app);
+RecipeCollectionsController(app);
+
+
 
 app.listen( 4000); // process.env.PORT ||
+console.log("app running at port: ")

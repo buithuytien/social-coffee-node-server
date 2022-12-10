@@ -3,6 +3,7 @@ mongoose.connect('mongodb://localhost:27017/social-coffee');
 
 import * as dao from './comments-dao.js'
 import * as postsDao from "../posts/posts-dao.js";
+import PostsController from "../posts/posts-controller.js";
 
 const CommentsController = (app) => {
     app.get('/api/comments/', findComments);
@@ -30,3 +31,5 @@ const createComment = async (req, res) => {
     const insertedComment = await dao.createPost(newComment);
     res.json(newComment);
 }
+
+export default CommentsController

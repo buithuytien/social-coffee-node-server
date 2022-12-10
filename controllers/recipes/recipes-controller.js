@@ -29,7 +29,9 @@ const findRecipesByAuthor = async (req, res) => {
 const createRecipe = async (req, res) => {
     const newRecipe = req.body;
     const currentUser = req.session['currentUser']
-    newRecipe.author = currentUser._id
+    if (currentUser){
+        newRecipe.author = currentUser._id
+    }
     console.log("from node server, create recipe recipe-controller, print new recipe");
     console.log(newRecipe);
     const insertedRecipe = await recipeDao.createRecipe(newRecipe);
