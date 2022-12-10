@@ -9,6 +9,7 @@ const RecipesController = (app) => {
     app.get('/api/recipes/author/:uid', findRecipesByAuthor);
     app.put('/api/recipes/:rid', updateRecipe);
     app.delete('/api/recipes/:rid', deleteRecipe);
+    app.get('/api/recipes/search/:term', searchRecipe);
 }
 
 const findRecipes = async (req, res) => {
@@ -52,6 +53,12 @@ const updateRecipe = async (req, res) => {
     // tuits[tuitIndex] = {...tuits[tuitIndex], ...updates};
     const status = await recipeDao.updateRecipe(recipeIdToUpdate, updates);
     res.json(status);
+}
+
+const searchRecipe = async (req, res) => {
+    const term = req.params.term;
+    const recipes = await recipeDao.searchRecipe(term);
+    res.json(recipes);
 }
 
 export default RecipesController
