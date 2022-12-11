@@ -23,16 +23,18 @@ const register = async (req, res) => {
 
     user.password = await bcrypt.hash(password, salt);
 
-    const existingUser = await usersDao.findUserByUsername(user.username)
-    if(existingUser) {
-        res.sendStatus(403)
+    const existingUser = await usersDao.findUserByUsername(user.userName)
+
+    console.log(existingUser)
+
+    if(!existingUser) {
+        const currentUser = await usersDao.createUser(user)
+        currentUser.password = '*****'
+        req.session['currentUser'] = currentUser
+        res.json(currentUser)
         return
     }
-
-    const currentUser = await usersDao.createUser(user)
-    currentUser.password = '*****'
-    req.session['currentUser'] = currentUser
-    res.json(currentUser)
+    res.sendStatus(403)
 }
 
 const login = async (req, res) => {
@@ -41,18 +43,18 @@ const login = async (req, res) => {
 
     const existingUser = await usersDao.findUserByUsername(credentials.userName)
 
-    const match = await bcrypt.compare(password, existingUser.password);
+    if (existingUser) {
+        const match = await bcrypt.compare(password, existingUser.password);
 
-    // const existingUser = await usersDao.findUserByUsername(credentials.userName)
-
-    if (match) {
-        // access session from here
-        existingUser.password = '*****'
-        req.session['currentUser'] = existingUser
-        console.log('users-controller login, session info')
-        console.log(req.session)
-        res.json(existingUser)
-        return
+        if (match) {
+            // access session from here
+            existingUser.password = '*****'
+            req.session['currentUser'] = existingUser
+            console.log('users-controller login, session info')
+            console.log(req.session)
+            res.json(existingUser)
+            return
+        }
     }
     res.sendStatus(403)
 }
