@@ -12,6 +12,7 @@ import UsersController from "./controllers/users/users-controller.js";
 import PostsController from "./controllers/posts/posts-controller.js";
 import CommentsController from "./controllers/comments/comments-controller.js";
 import RecipeCollectionsController from "./controllers/recipe-collections/recipe-collection-controller.js";
+import PublicController from "./controllers/public/public-controller.js";
 
 dotenv.config()
 
@@ -43,6 +44,7 @@ UsersController(app);
 PostsController(app);
 CommentsController(app);
 RecipeCollectionsController(app);
+PublicController(app);
 
 
 
