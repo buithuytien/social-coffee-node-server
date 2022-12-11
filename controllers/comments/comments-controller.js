@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
 import * as dao from './comments-dao.js'
-import * as postsDao from "../posts/posts-dao.js";
-import PostsController from "../posts/posts-controller.js";
 
 const CommentsController = (app) => {
     app.get('/api/comments/', findComments);
@@ -25,10 +23,12 @@ const createComment = async (req, res) => {
     const newComment = req.body;
     // get login user from session, add to post
     const currentUser = req.session['currentUser']
-    newComment.author = currentUser._id
+    if (currentUser){
+        newComment.author = currentUser._id
+    }
     // newComment.post = post._id
-    const insertedComment = await dao.createPost(newComment);
-    res.json(newComment);
+    const insertedComment = await dao.createComment(newComment);
+    res.json(insertedComment);
 }
 
 export default CommentsController
