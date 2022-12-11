@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt'
 
 const salt = 10
 
+let currentUser = null
+
 // import {createUser, deleteUser, findUsers, updateUser} from "./users-dao.js";
 
 const UsersController = (app) =>{
@@ -15,6 +17,7 @@ const UsersController = (app) =>{
     app.post('/api/users/register', register)
     app.post('/api/users/login', login)
     app.post('/api/users/logout', logout)
+    app.post('/api/users/profile', profile)
 }
 
 const register = async (req, res) => {
@@ -52,6 +55,7 @@ const login = async (req, res) => {
             req.session['currentUser'] = existingUser
             console.log('users-controller login, session info')
             console.log(req.session)
+            currentUser = existingUser
             res.json(existingUser)
             return
         }
@@ -60,8 +64,17 @@ const login = async (req, res) => {
 }
 
 const logout = (req, res) => {
+    currentUser = null
     req.session.destroy()
     res.sendStatus(200)
+}
+
+const profile = async (req, res) => {
+    if (currentUser) {
+        res.json(currentUser)
+        return
+    }
+    res.sendStatus(403)
 }
 
 
