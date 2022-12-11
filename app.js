@@ -20,7 +20,7 @@ dotenv.config()
 // console.log(process.env.DB_CONNECTION_STRING)
 // console.log("mongodb+srv://buithuytien1313:25011993@cluster0.xybi1r2.mongodb.net/?retryWrites=true&w=majority")
 const CONNECTION_STRING = process.env.DB_CONNECT_STRING
-    || 'mongodb://localhost:27017/tuiter'
+    || 'mongodb://localhost:27017/social-coffee'
 console.log(CONNECTION_STRING)
 mongoose.connect(CONNECTION_STRING);
 
