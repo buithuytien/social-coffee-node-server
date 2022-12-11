@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 import * as dao from './recipe-collection-dao.js'
 import {findRecipeCollectionById} from "./recipe-collection-dao.js";
+import {findRecipeById} from "../recipes/recipes-dao.js";
 
 const RecipeCollectionsController = (app) => {
     app.get('/api/recipeCollections', findRecipeCollections)
@@ -13,14 +14,38 @@ const RecipeCollectionsController = (app) => {
 }
 
 const findRecipeCollections = async (req, res) => {
-    const recipeCollections = await dao.findRecipeCollections()
-    res.json(recipeCollections)
+    const recipeCollections = await dao.findRecipeCollections();
+    let recipeCollectionWithRecipe = []
+    for (let i = 0; i < recipeCollections.length; i++) {
+        let recipeCollection = recipeCollections[i]
+        let recipeList = recipeCollection.recipeList
+        let recipeListWithRecipe = []
+        for (let j = 0; j < recipeList.length; j++) {
+            let recipe = await findRecipeById(recipeList[j])
+            recipeListWithRecipe.push(recipe)
+        }
+        recipeCollection.recipeList = recipeListWithRecipe
+        recipeCollectionWithRecipe.push(recipeCollection)
+    }
+    res.json(recipeCollectionWithRecipe);
 }
 
 const findRecipeCollectionsByAuthor = async (req, res) => {
     const uid = req.params.uid;
-    const recipeCollections = await dao.findRecipeCollectionsByAuthor(uid)
-    res.json(recipeCollections)
+    const recipeCollections = await dao.findRecipeCollectionsByAuthor(uid);
+    let recipeCollectionWithRecipe = []
+    for (let i = 0; i < recipeCollections.length; i++) {
+        let recipeCollection = recipeCollections[i]
+        let recipeList = recipeCollection.recipeList
+        let recipeListWithRecipe = []
+        for (let j = 0; j < recipeList.length; j++) {
+            let recipe = await findRecipeById(recipeList[j])
+            recipeListWithRecipe.push(recipe)
+        }
+        recipeCollection.recipeList = recipeListWithRecipe
+        recipeCollectionWithRecipe.push(recipeCollection)
+    }
+    res.json(recipeCollectionWithRecipe);
 }
 
 const createRecipeCollection = async (req, res) => {
