@@ -4,7 +4,9 @@ const schema = mongoose.Schema({
     recipeName: String,
     recipeDescription: String,
     recipeNote: String,
-    ingredients: [String],
-    steps: [String]
+    // ingredients: [String],
+    // steps: [String]
+    ingredients: String,
+    steps: String
 }, {collection: 'recipes'});
 export default schema;
