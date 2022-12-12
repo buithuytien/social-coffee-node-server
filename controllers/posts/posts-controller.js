@@ -25,11 +25,18 @@ const findPostsByAuthor = async (req, res) => {
 
 const findPostsByRecipe = async (req, res) => {
     const rid = req.params.rid;
-    const postsByRecipe = await postsDao.findPostByRecipe(rid);
-    const postsByRecipeExternal = await postsDao.findPostByRecipeExternal(rid);
-    const posts = postsByRecipe.concat(postsByRecipeExternal);
-    console.log(posts);
-    res.json(posts);
+    // try to find post by recipe id, if error, try to find post by recipe_external id, if error, return empty array
+    try {
+        const posts = await postsDao.findPostByRecipe(rid);
+        res.json(posts);
+    } catch (e) {
+        try {
+            const posts = await postsDao.findPostByRecipeExternal(rid);
+            res.json(posts);
+        } catch (e) {
+            res.json([]);
+        }
+    }
 }
 
 const createPost = async (req, res) => {
