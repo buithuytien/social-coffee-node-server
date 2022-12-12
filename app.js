@@ -13,6 +13,7 @@ import PostsController from "./controllers/posts/posts-controller.js";
 import CommentsController from "./controllers/comments/comments-controller.js";
 import RecipeCollectionsController from "./controllers/recipe-collections/recipe-collection-controller.js";
 import PublicController from "./controllers/public/public-controller.js";
+import SessionController from "./session-controller.js";
 
 dotenv.config()
 
@@ -45,7 +46,7 @@ PostsController(app);
 CommentsController(app);
 RecipeCollectionsController(app);
 PublicController(app);
-
+SessionController(app)
 
 
 app.listen( 4000); // process.env.PORT ||

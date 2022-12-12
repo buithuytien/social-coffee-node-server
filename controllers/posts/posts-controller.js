@@ -48,6 +48,9 @@ const createPost = async (req, res) => {
         newPost.author = currentUser._id
     }
     newPost.likes = 0
+    // assign date field of newPost to today's date
+    newPost.date = new Date();
+
     console.log("from node server, createpost post-controller, print new post");
     console.log(newPost);
     const insertedPost = await postsDao.createPost(newPost);

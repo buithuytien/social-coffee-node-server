@@ -64,6 +64,9 @@ const login = async (req, res) => {
 }
 
 const logout = (req, res) => {
+    console.log("logout from user controller node, print session");
+    console.log("session before logout", req.session);
+
     currentUser = null
     req.session.destroy()
     res.sendStatus(200)
@@ -79,6 +82,9 @@ const profile = async (req, res) => {
 
 
 const findUserById = async (req, res) => {
+    console.log("logout from user controller node, print session");
+    console.log("session when find user by id", req.session);
+
     const uid = req.params.uid
     const user = await usersDao.findUserById(uid)
     if (user) {
