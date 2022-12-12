@@ -1,4 +1,8 @@
 import postsModel from './posts-model.js';
+
+export const findPostByRecipe = (rid) => postsModel.find({recipe: rid});
+export const findPostByRecipeExternal = (rid) => postsModel.find({recipe_external: rid});
+
 export const findPost = () => postsModel.find();
 export const findPostByAuthor = (uid) => postsModel.find({author: uid})
 export const createPost = (post) => postsModel.create(post);

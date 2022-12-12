@@ -6,6 +6,7 @@ const PostsController = (app) => {
     app.post('/api/posts', createPost);
     app.get('/api/posts', findPosts);
     app.get('/api/posts/author/:uid', findPostsByAuthor);
+    app.get('/api/posts/recipe/:rid', findPostsByRecipe);
     app.put('/api/posts/:pid', updatePost);
     app.delete('/api/posts/:pid', deletePost);
 }
@@ -20,6 +21,15 @@ const findPostsByAuthor = async (req, res) => {
     const posts = await postsDao.findPostByAuthor(uid);
     console.log(posts);
     res.json(posts)
+}
+
+const findPostsByRecipe = async (req, res) => {
+    const rid = req.params.rid;
+    const postsByRecipe = await postsDao.findPostByRecipe(rid);
+    const postsByRecipeExternal = await postsDao.findPostByRecipeExternal(rid);
+    const posts = postsByRecipe.concat(postsByRecipeExternal);
+    console.log(posts);
+    res.json(posts);
 }
 
 const createPost = async (req, res) => {
