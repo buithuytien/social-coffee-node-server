@@ -115,11 +115,22 @@ const deleteUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    const uid = req.params.uid
+    const uid = req.body._id
     const updates = req.body
     console.log(uid, updates)
+
     const status = await usersDao.updateUser(uid, updates)
-    res.json(status)
+
+    const user = await usersDao.findUserById(uid)
+
+    user.password = '*****'
+    req.session['currentUser'] = user
+
+    currentUser = user
+
+    console.log(req.session['currentUser'])
+
+    res.json(user)
 }
 
 export default UsersController
