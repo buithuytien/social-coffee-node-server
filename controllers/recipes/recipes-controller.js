@@ -27,6 +27,8 @@ const findRecipesByAuthor = async (req, res) => {
 
 
 const createRecipe = async (req, res) => {
+    console.log('create recipe controller, req.session:', req.session);
+
     const newRecipe = req.body;
     const currentUser = req.session['currentUser']
 
