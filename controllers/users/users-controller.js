@@ -34,6 +34,8 @@ const register = async (req, res) => {
         const currentUser = await usersDao.createUser(user)
         currentUser.password = '*****'
         req.session['currentUser'] = currentUser
+        console.log('users-controller register, session info')
+        console.log(req.session)
         res.json(currentUser)
         return
     }
@@ -53,8 +55,8 @@ const login = async (req, res) => {
             // access session from here
             existingUser.password = '*****'
             req.session['currentUser'] = existingUser
-            console.log('users-controller login, session info')
-            console.log(req.session)
+            // console.log('users-controller login, session info')
+            // console.log(req.session)
             currentUser = existingUser
             res.json(existingUser)
             return
@@ -73,6 +75,8 @@ const logout = (req, res) => {
 }
 
 const profile = async (req, res) => {
+    console.log("profile from user controller node, print session");
+    console.log("session when profile", req.session);
     if (currentUser) {
         res.json(currentUser)
         return
@@ -82,8 +86,7 @@ const profile = async (req, res) => {
 
 
 const findUserById = async (req, res) => {
-    console.log("logout from user controller node, print session");
-    console.log("session when find user by id", req.session);
+    console.log("from user controller, session when find user by id", req.session);
 
     const uid = req.params.uid
     const user = await usersDao.findUserById(uid)
