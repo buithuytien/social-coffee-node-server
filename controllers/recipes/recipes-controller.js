@@ -29,6 +29,7 @@ const findRecipesByAuthor = async (req, res) => {
 const createRecipe = async (req, res) => {
     const newRecipe = req.body;
     const currentUser = req.session['currentUser']
+
     if (currentUser){
         newRecipe.author = currentUser._id
     }
